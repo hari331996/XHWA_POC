@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -13,7 +13,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Login_Screen" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Home" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -156,23 +156,33 @@
         <!--Activity-->
         <scene sceneID="YyG-gt-lks">
             <objects>
-                <viewController id="fcI-uS-mMB" customClass="ActivityTabViewController" customModule="Login_Screen" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="fcI-uS-mMB" customClass="ActivityTabViewController" customModule="Home" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FPd-XU-fpi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YkO-Q8-Y2M">
+                                <rect key="frame" x="6" y="0.0" width="375" height="618"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="HCQ-02-ZQ1"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Activity" id="Kqa-bB-uiz"/>
+                    <connections>
+                        <outlet property="tableView" destination="YkO-Q8-Y2M" id="nhX-vc-btv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vUJ-x1-7b9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1625" y="-173"/>
+            <point key="canvasLocation" x="1624.8" y="-173.16341829085459"/>
         </scene>
         <!--More Tab View Controller-->
         <scene sceneID="btj-AQ-veW">
             <objects>
-                <viewController id="BhJ-Zt-IRa" customClass="MoreTabViewController" customModule="Login_Screen" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BhJ-Zt-IRa" customClass="MoreTabViewController" customModule="Home" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OBR-hK-3YF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -324,7 +334,7 @@
         <!--Automation-->
         <scene sceneID="FUh-jM-ZDq">
             <objects>
-                <viewController id="plS-Ia-vyW" customClass="AutomationTabViewController" customModule="Login_Screen" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="plS-Ia-vyW" customClass="AutomationTabViewController" customModule="Home" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2uC-zY-Hiy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -340,7 +350,7 @@
         <!--Overview-->
         <scene sceneID="lLS-FD-ByF">
             <objects>
-                <viewController id="IpG-N5-E6m" customClass="OverviewTabViewController" customModule="Login_Screen" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="IpG-N5-E6m" customClass="OverviewTabViewController" customModule="Home" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5hg-ZC-S9P">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
