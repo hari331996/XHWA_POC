@@ -13,6 +13,8 @@ import SwiftyJSON
 class ActivityTabViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let apiUrl = "https://qacluster6.einfochips.com/rest/icontrol/sites/4140/eventsByDay"
+    var activityCount = 0
+    var activityArray = [Any]()
     
     // cell reuse id (cells that scroll out of view can be reused)
     let cellReuseIdentifier = "cell"
@@ -25,14 +27,14 @@ class ActivityTabViewController: UIViewController, UITableViewDelegate, UITableV
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
         tableView.delegate = self
         tableView.dataSource = self
-        let params : [String : String] = ["startDate" : "2018-07-22", "maxResults" : "65536"]
+        let params : [String : String] = ["startDate" : "2018-07-26", "maxResults" : "65536"]
         getActivityData(url: apiUrl, parameters: params)
     }
     
     func getActivityData(url: String, parameters: [String: String]) {
         let headers = ["Accept": "application/json; charset=UTF-8"]
         Alamofire.request(url, method: .get, parameters: parameters, headers: headers)
-        .responseString {
+        .responseJSON {
             response in
             if response.result.isSuccess {
                 
@@ -47,10 +49,18 @@ class ActivityTabViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func updateUI(json: JSON) {
-//        json["weather"][0]["id"].intValue
         print("updateUI")
-        print(json)
-        print(json["entry"].arrayValue)
+        //print(json)
+        //print("Count: \(json["count"].intValue)")
+        activityCount = json["count"].intValue
+        //print(activityArray)
+        //if let activityData = json["href"].stringValue {
+//            for item in json["entry"].arrayValue {
+//                print("Instance Id: \(item["instance"].stringValue)")
+//                print("Value: \(item["value"].stringValue)")
+//                print("Time: \(item["ts"].intValue)")
+//            }
+        //}
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,7 +71,7 @@ class ActivityTabViewController: UIViewController, UITableViewDelegate, UITableV
     // number of rows in table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //return self.animals.count
-        return 1
+        return activityCount
     }
     
     // create a cell for each table view row
@@ -71,7 +81,8 @@ class ActivityTabViewController: UIViewController, UITableViewDelegate, UITableV
         let cell:UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as UITableViewCell!
         
         // set the text from the data model
-        //cell.textLabel?.text = self.animals[indexPath.row]
+//        print(activityArray[indexPath.row] as AnyObject).value;)
+//        cell.textLabel?.text = (activityArray[indexPath.row] as AnyObject).value
         
         return cell
     }

@@ -30,16 +30,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
                        "X-expires": "6000000",
                        "Accept": "application/json; charset=UTF-8"]
         Alamofire.request(url, method: .get, headers: headers)
-            .responseString {
+            .responseJSON {
                 response in
-
                     if response.result.isSuccess {
-
                     let loginJSON : JSON = JSON(response.result.value!)
+                    print(loginJSON)
                     if (loginJSON != "failed") {
-                        print(loginJSON)
                         let uname = loginJSON["login"]["displayName"].stringValue
-                        print(uname)
+                        print("Username:: \(uname)")
                         //to navigate to next page
                         self.performSegue(withIdentifier: "segueIdMain", sender: self)
                     }
