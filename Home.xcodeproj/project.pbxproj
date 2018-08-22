@@ -19,6 +19,7 @@
 		229BB15220ECAC9C005FC5B4 /* AutomationTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229BB15120ECAC9C005FC5B4 /* AutomationTabViewController.swift */; };
 		229BB15420ECACB4005FC5B4 /* MoreTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229BB15320ECACB4005FC5B4 /* MoreTabViewController.swift */; };
 		5F6560531C862AD27587C095 /* Pods_Home.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824E48915630E7DBB2B681A4 /* Pods_Home.framework */; };
+		87A7C1A1212D65820090BBEE /* ManagePartnerServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7C1A0212D65820090BBEE /* ManagePartnerServicesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		229BB15320ECACB4005FC5B4 /* MoreTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreTabViewController.swift; sourceTree = "<group>"; };
 		4AF1DF04F8B93C9D335F62CC /* Pods-Home.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Home.release.xcconfig"; path = "Pods/Target Support Files/Pods-Home/Pods-Home.release.xcconfig"; sourceTree = "<group>"; };
 		824E48915630E7DBB2B681A4 /* Pods_Home.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Home.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		87A7C1A0212D65820090BBEE /* ManagePartnerServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagePartnerServicesViewController.swift; sourceTree = "<group>"; };
 		CC2A856BA3766BB004FB537F /* Pods-Home.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Home.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Home/Pods-Home.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,6 +119,7 @@
 				229BB11620E9FE5D005FC5B4 /* ViewController.swift */,
 				229BB15320ECACB4005FC5B4 /* MoreTabViewController.swift */,
 				229BB14D20ECAC4B005FC5B4 /* OverviewTabViewController.swift */,
+				87A7C1A0212D65820090BBEE /* ManagePartnerServicesViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 				229BB14E20ECAC4B005FC5B4 /* OverviewTabViewController.swift in Sources */,
 				229BB14C20EC95A8005FC5B4 /* MainViewController.swift in Sources */,
 				229BB15420ECACB4005FC5B4 /* MoreTabViewController.swift in Sources */,
+				87A7C1A1212D65820090BBEE /* ManagePartnerServicesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,9 @@
 import UIKit
 
 class MoreTabViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    let cellContent = ["Manage Devices", "Account", "Contacts", "Application"]
+    var cellContent = [String]()
+    var identities = [String]()
+    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cellContent.count
     }
@@ -19,10 +21,19 @@ class MoreTabViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.textLabel?.text = cellContent[indexPath.row]
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vcName = identities[indexPath.row]
+        let viewController = storyboard?.instantiateViewController(withIdentifier: vcName)
+        self.navigationController?.pushViewController(viewController!, animated: true)
+        print("transform!")
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        cellContent = ["Manage Partner Services", "Account", "Contacts", "Application"]
+        identities = ["ManagePartnerServices", "ManagePartnerServices", "ManagePartnerServices", "ManagePartnerServices"]
         // Do any additional setup after loading the view.
         print("More Tab View Controller Loaded")
     }
@@ -32,7 +43,6 @@ class MoreTabViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Dispose of any resources that can be recreated.
     }
     
-
     /*
     // MARK: - Navigation
 

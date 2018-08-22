@@ -12,7 +12,7 @@ import SwiftyJSON
 
 class ViewController: UIViewController, UITextFieldDelegate {
     var commitPredicate: NSPredicate?
-    let apiUrl = "https://qacluster6.einfochips.com/rest/icontrol/login"
+    let apiUrl = "https://pdev-n.icontrol.com/rest/icontrol/login"
     @IBOutlet weak var usernameView: UITextField!
     
     @IBOutlet weak var passwordView: UITextField!
