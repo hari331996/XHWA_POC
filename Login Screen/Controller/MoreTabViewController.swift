@@ -7,10 +7,36 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class MoreTabViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var cellContent = [String]()
     var identities = [String]()
+    let defaults = UserDefaults.standard
+    
+    @IBAction func logout(_ sender: UIBarButtonItem) {
+        let serverName = defaults.value(forKey: "serverName") as! String
+        let apiURl = "https://\(serverName)/rest/icontrol/logout"
+        Alamofire.request(apiURl, method: .get)
+            .responseString {
+                response in
+                if response.result.isSuccess {
+                    print("Logged out")
+                    // This is used to remove UserDefaults data
+//                    let domain = Bundle.main.bundleIdentifier!
+//                    UserDefaults.standard.removePersistentDomain(forName: domain)
+//                    UserDefaults.standard.synchronize()
+                    let loginVC = self.storyboard?.instantiateInitialViewController()
+                    let appDel:AppDelegate = UIApplication.shared.delegate as! AppDelegate
+                    appDel.window?.rootViewController = loginVC
+                    
+                }
+                else {
+                    print("Error \(String(describing: response.result.error))")
+                }
+        }
+    }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cellContent.count
@@ -24,8 +50,8 @@ class MoreTabViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vcName = identities[indexPath.row]
-        let viewController = storyboard?.instantiateViewController(withIdentifier: vcName)
-        self.navigationController?.pushViewController(viewController!, animated: true)
+        let viewController = self.storyboard?.instantiateViewController(withIdentifier: vcName)
+        navigationController?.pushViewController(viewController!, animated: true)
         print("transform!")
         
     }

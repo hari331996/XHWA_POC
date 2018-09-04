@@ -11,24 +11,35 @@ import Alamofire
 import SwiftyJSON
 
 class ActivityTabViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-    let apiUrl = "https://qacluster6.einfochips.com/rest/icontrol/sites/4140/eventsByDay"
-    var activityCount = 0
-    var activityArray = [Any]()
+    let defaults = UserDefaults.standard
+   
     
     // cell reuse id (cells that scroll out of view can be reused)
     let cellReuseIdentifier = "cell"
     
     // don't forget to hook this up from the storyboard
     @IBOutlet weak var tableView: UITableView!
+    fileprivate var activityArray = [ActivityDataModelItem]() {
+        didSet {
+            tableView?.reloadData()
+        }
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let serverName = defaults.string(forKey: "serverName") as! String
+        let siteId = defaults.string(forKey: "siteId") as! String
+        let apiUrl = "https://\(serverName)/rest/icontrol/sites/\(siteId)/eventsByDay"
+        let params : [String : String] = ["startDate" : "2018-08-27", "maxResults" : "65536"]
+        getActivityData(url: apiUrl, parameters: params)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
         tableView.delegate = self
         tableView.dataSource = self
-        let params : [String : String] = ["startDate" : "2018-07-26", "maxResults" : "65536"]
-        getActivityData(url: apiUrl, parameters: params)
+        
     }
     
     func getActivityData(url: String, parameters: [String: String]) {
@@ -50,19 +61,28 @@ class ActivityTabViewController: UIViewController, UITableViewDelegate, UITableV
     
     func updateUI(json: JSON) {
         print("updateUI")
-        //print(json)
-        //print("Count: \(json["count"].intValue)")
-        activityCount = json["count"].intValue
-        //print(activityArray)
-        //if let activityData = json["href"].stringValue {
-//            for item in json["entry"].arrayValue {
-//                print("Instance Id: \(item["instance"].stringValue)")
-//                print("Value: \(item["value"].stringValue)")
-//                print("Time: \(item["ts"].intValue)")
-//            }
-        //}
+            for item in json["entry"].arrayValue {
+                //var alarmStart = getAlarmStart(item: JSON);
+                print(item)
+
+                let activityViewDataModelItem = ActivityDataModelItem(data: (item as? JSON)!)
+                activityArray.append(activityViewDataModelItem)
+          
+        }
     }
 
+//    func getAlarmStart(item: JSON) {
+//        var alarm;
+//        if(typeof item.metaData !== 'undefined'){
+//            var alarmStart = $filter('where')(event.metaData, {name:'alarmStartDate'});
+//            if(alarmStart.length > 0){
+//                if(typeof alarmStart[0].value != 'undefined'){
+//                    alarm = alarmStart[0].value;
+//                }
+//            }
+//        }
+//        return alarm;
+//    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -70,8 +90,7 @@ class ActivityTabViewController: UIViewController, UITableViewDelegate, UITableV
     
     // number of rows in table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return self.animals.count
-        return activityCount
+        return activityArray.count
     }
     
     // create a cell for each table view row
@@ -79,10 +98,7 @@ class ActivityTabViewController: UIViewController, UITableViewDelegate, UITableV
         
         // create a new cell if needed or reuse an old one
         let cell:UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as UITableViewCell!
-        
-        // set the text from the data model
-//        print(activityArray[indexPath.row] as AnyObject).value;)
-//        cell.textLabel?.text = (activityArray[indexPath.row] as AnyObject).value
+        cell.textLabel?.text = activityArray[indexPath.row].activityName
         
         return cell
     }
