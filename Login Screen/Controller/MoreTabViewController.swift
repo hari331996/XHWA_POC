@@ -50,16 +50,20 @@ class MoreTabViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vcName = identities[indexPath.row]
-        let viewController = self.storyboard?.instantiateViewController(withIdentifier: vcName)
-        navigationController?.pushViewController(viewController!, animated: true)
-        print("transform!")
+        if vcName != "ManagePartnerServices" {
+            print("Under Construction >>> " + vcName)
+        }
+        else {
+            let viewController = self.storyboard?.instantiateViewController(withIdentifier: vcName)
+            navigationController?.pushViewController(viewController!, animated: true)
+        }
         
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         cellContent = ["Manage Partner Services", "Account", "Contacts", "Application"]
-        identities = ["ManagePartnerServices", "ManagePartnerServices", "ManagePartnerServices", "ManagePartnerServices"]
+        identities = ["ManagePartnerServices", "Account", "Contacts", "Application"]
         // Do any additional setup after loading the view.
         print("More Tab View Controller Loaded")
     }
