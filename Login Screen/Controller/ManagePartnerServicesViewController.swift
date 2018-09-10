@@ -11,9 +11,9 @@ import Alamofire
 import SwiftyJSON
 
 class ManagePartnerServicesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    let defaults = UserDefaults.standard
-    
     @IBOutlet weak var tableView: UITableView!
+    let defaults = UserDefaults.standard
+    var deviceList = [DeviceList]()
     
     fileprivate var partnerList = [String]() {
         didSet {
@@ -26,9 +26,25 @@ class ManagePartnerServicesViewController: UIViewController, UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "Cell")
+        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "Cell")
         cell.textLabel?.text = partnerList[indexPath.row]
+        cell.detailTextLabel?.text = getStatus(partnerName: partnerList[indexPath.row])
+        let icon = "icon_settings_devices.png"
+        cell.imageView?.image = UIImage(named: icon)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let status = getStatus(partnerName: partnerList[indexPath.row])
+        if status == "Connected" {
+            let viewController:CloudServiceViewController = self.storyboard?.instantiateViewController(withIdentifier: "CloudService") as! CloudServiceViewController
+            navigationController?.pushViewController(viewController, animated: true)
+            viewController.serviceID = partnerList[indexPath.row]
+        } else {
+            print("Service Not Connected")
+        }
+        
+        
     }
     
     override func viewDidLoad() {
@@ -63,6 +79,19 @@ class ManagePartnerServicesViewController: UIViewController, UITableViewDelegate
                     print("Error \(String(describing: response.result.error))")
                 }
         }
+    }
+    
+    func getStatus(partnerName: String) -> String {
+        var status = "Disconnected"
+        let decoded  = defaults.object(forKey: "deviceArray") as! Data
+        self.deviceList = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! [DeviceList]
+        for item in 0..<self.deviceList.count - 1 {
+            let deviceType = self.deviceList[item].deviceType.split(separator: "-")
+            if (deviceType[0] == partnerName) {
+                status = "Connected"
+            }
+        }
+        return status
     }
     
 
