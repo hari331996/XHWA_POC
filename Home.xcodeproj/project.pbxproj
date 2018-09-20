@@ -25,6 +25,8 @@
 		94334E51213563E90095AA65 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94334E50213563E90095AA65 /* Device.swift */; };
 		94334E53213563FB0095AA65 /* DeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94334E52213563FB0095AA65 /* DeviceData.swift */; };
 		94334E5721357CAE0095AA65 /* Zone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94334E5621357CAE0095AA65 /* Zone.swift */; };
+		94A6EACD21510E6D00DCA6FD /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A6EACC21510E6D00DCA6FD /* Loader.swift */; };
+		94A6EAD121511B0C00DCA6FD /* ApiCalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A6EAD021511B0C00DCA6FD /* ApiCalls.swift */; };
 		94CD2B8B212EDB0C00EFBFA0 /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CD2B8A212EDB0C00EFBFA0 /* DeviceList.swift */; };
 		94CD2B97212FDC9100EFBFA0 /* ApplicationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CD2B96212FDC9100EFBFA0 /* ApplicationSettingsViewController.swift */; };
 /* End PBXBuildFile section */
@@ -51,6 +53,8 @@
 		94334E50213563E90095AA65 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		94334E52213563FB0095AA65 /* DeviceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceData.swift; sourceTree = "<group>"; };
 		94334E5621357CAE0095AA65 /* Zone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zone.swift; sourceTree = "<group>"; };
+		94A6EACC21510E6D00DCA6FD /* Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
+		94A6EAD021511B0C00DCA6FD /* ApiCalls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCalls.swift; sourceTree = "<group>"; };
 		94CD2B8A212EDB0C00EFBFA0 /* DeviceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceList.swift; sourceTree = "<group>"; };
 		94CD2B96212FDC9100EFBFA0 /* ApplicationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSettingsViewController.swift; sourceTree = "<group>"; };
 		CC2A856BA3766BB004FB537F /* Pods-Home.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Home.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Home/Pods-Home.debug.xcconfig"; sourceTree = "<group>"; };
@@ -129,6 +133,7 @@
 				94CD2B96212FDC9100EFBFA0 /* ApplicationSettingsViewController.swift */,
 				87A7C1A0212D65820090BBEE /* ManagePartnerServicesViewController.swift */,
 				87E9442121428EF800399C7A /* CloudServiceViewController.swift */,
+				94A6EACC21510E6D00DCA6FD /* Loader.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -150,6 +155,7 @@
 				94334E50213563E90095AA65 /* Device.swift */,
 				94334E52213563FB0095AA65 /* DeviceData.swift */,
 				94334E5621357CAE0095AA65 /* Zone.swift */,
+				94A6EAD021511B0C00DCA6FD /* ApiCalls.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -249,12 +255,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Home/Pods-Home-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
@@ -270,6 +278,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94A6EAD121511B0C00DCA6FD /* ApiCalls.swift in Sources */,
 				229BB11720E9FE5D005FC5B4 /* ViewController.swift in Sources */,
 				941F5728211AF00B00A5D2A7 /* ActivityDataModelItem.swift in Sources */,
 				229BB15020ECAC8E005FC5B4 /* ActivityTabViewController.swift in Sources */,
@@ -285,6 +294,7 @@
 				94334E53213563FB0095AA65 /* DeviceData.swift in Sources */,
 				94CD2B97212FDC9100EFBFA0 /* ApplicationSettingsViewController.swift in Sources */,
 				229BB15420ECACB4005FC5B4 /* MoreTabViewController.swift in Sources */,
+				94A6EACD21510E6D00DCA6FD /* Loader.swift in Sources */,
 				87A7C1A1212D65820090BBEE /* ManagePartnerServicesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

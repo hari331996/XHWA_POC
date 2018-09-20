@@ -10,5 +10,6 @@ target 'Home' do
     pod 'SwiftyJSON'
     pod 'Alamofire'
     pod 'SVProgressHUD'
+    pod 'PromiseKit'
 
 end

@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import PromiseKit
 
 class MoreTabViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var cellContent = [String]()
@@ -16,25 +17,23 @@ class MoreTabViewController: UIViewController, UITableViewDelegate, UITableViewD
     let defaults = UserDefaults.standard
     
     @IBAction func logout(_ sender: UIBarButtonItem) {
-        let serverName = defaults.value(forKey: "serverName") as! String
-        let apiURl = "https://\(serverName)/rest/icontrol/logout"
-        Alamofire.request(apiURl, method: .get)
-            .responseString {
-                response in
-                if response.result.isSuccess {
-                    print("Logged out")
-                    // This is used to remove UserDefaults data
-//                    let domain = Bundle.main.bundleIdentifier!
-//                    UserDefaults.standard.removePersistentDomain(forName: domain)
-//                    UserDefaults.standard.synchronize()
-                    let loginVC = self.storyboard?.instantiateInitialViewController()
-                    let appDel:AppDelegate = UIApplication.shared.delegate as! AppDelegate
-                    appDel.window?.rootViewController = loginVC
-                    
-                }
-                else {
-                    print("Error \(String(describing: response.result.error))")
-                }
+        let sv = UIViewController.displaySpinner(onView: self.view)
+        firstly {
+            ApiCalls().doLogout()
+        }.done { responseData in
+            UIViewController.removeSpinner(spinner: sv)
+            //This is used to remove UserDefaults data
+//            let domain = Bundle.main.bundleIdentifier!
+//            UserDefaults.standard.removePersistentDomain(forName: domain)
+//            UserDefaults.standard.synchronize()
+            let loginVC = self.storyboard?.instantiateInitialViewController()
+            let appDel:AppDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDel.window?.rootViewController = loginVC
+        }.catch { error in
+            UIViewController.removeSpinner(spinner: sv)
+            let alert = UIAlertController(title: "Alert", message: "Logout failed", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
     }
     

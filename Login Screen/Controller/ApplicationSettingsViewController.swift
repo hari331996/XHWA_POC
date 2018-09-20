@@ -16,6 +16,7 @@ class ApplicationSettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         serverUrlText.text = defaults.string(forKey: "serverName")
+        self.hideKeyboardWhenTappedAround()
 
         // Do any additional setup after loading the view.
     }
@@ -42,6 +43,7 @@ class ApplicationSettingsViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+  
     
 
     /*

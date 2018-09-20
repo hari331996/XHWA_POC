@@ -9,74 +9,71 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import PromiseKit
 
 class ViewController: UIViewController, UITextFieldDelegate {
-    var commitPredicate: NSPredicate?
+    
+   // var commitPredicate: NSPredicate?
     let defaults = UserDefaults.standard
     let deviceData = DeviceData()
     var deviceArray : [DeviceList] = []
-    var serverName : String? = ""
     
     @IBOutlet weak var usernameView: UITextField!
-    
     @IBOutlet weak var passwordView: UITextField!
-    
     @IBOutlet weak var resultTxt: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        serverName = defaults.string(forKey: "serverName")
+        self.hideKeyboardWhenTappedAround()
+        var serverName = defaults.string(forKey: "serverName")
         if serverName == "" || serverName == nil {
             serverName = "beta.icontrol.com"
             self.defaults.set(serverName, forKey: "serverName")
         }
     }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
     
-    func doLogin(url: String, parameters: [String: String]) {
-        let headers = ["X-login": String(usernameView.text!),
-                       "X-password": String(passwordView.text!),
-                       "X-AppKey": "defaultKey",
-                       "X-expires": "6000000",
-                       "Accept": "application/json; text/plain; */*"]
-        Alamofire.request(url, method: .get,parameters: parameters, headers: headers)
-            .responseJSON {
-                response in
-                if response.result.isSuccess {
-                    let loginJSON : JSON = JSON(response.result.value!)
-                    print(loginJSON)
-                    if (loginJSON != "failed") {
-                        let uname = loginJSON["login"]["displayName"].stringValue
-                        print("Username:: \(uname)")
-                        for item in loginJSON["login"]["instances"]["instance"].arrayValue {
-                            //let deviceObj = DeviceList(data: (item as? JSON)!)
-                            let deviceObj = DeviceList(deviceType: item["tags"].stringValue, deviceId: item["id"].stringValue, deviceName: item["name"].stringValue, status: self.getDeviceStatus(point: item["points"].arrayValue, deviceType: item["tags"].stringValue), mediaType: item["mediaType"].stringValue)
-                            self.deviceArray.append(deviceObj)
-                        }
-                        
-                        self.defaults.setValue(uname, forKey: "Name")
-                        self.defaults.setValue(loginJSON["login"]["site"]["id"].stringValue, forKey: "siteId")
-                        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: self.deviceArray)
-                        self.defaults.set(encodedData, forKey: "deviceArray")
-                        self.defaults.synchronize()
-                        
-                        
-                        //to navigate to next page
-                        self.performSegue(withIdentifier: "segueIdMain", sender: self)
-                    }
-                    else {
-                        print("Login Failed!!")
-                        self.resultTxt.alpha = 1
-                        self.resultTxt.text = "Oops..Log In Failed!!"
-                        //Alert View
-                        let alert = UIAlertController(title: "Alert", message: "Login Failed..Invalid Credentials", preferredStyle: UIAlertControllerStyle.alert)
-                        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                    
-                }
-                else {
-                    print("Error \(String(describing: response.result.error))")
-                }
+    @IBAction func signInBtnTapped(_ sender: UIButton) {
+        let spinner = UIViewController.displaySpinner(onView: self.view)
+        firstly {
+            ApiCalls().doLogin(username: usernameView.text!, password: passwordView.text!)
+        }.done {
+            responseData in
+            UIViewController.removeSpinner(spinner: spinner)
+            self.parseResponse(response: responseData)
+        }.catch {
+            error in
+            UIViewController.removeSpinner(spinner: spinner)
+            self.loginError(error: error)
         }
+    }
+    
+    func parseResponse(response: JSON) {
+        let loginJSON : JSON = response
+        let uname = loginJSON["login"]["displayName"].stringValue
+        for item in loginJSON["login"]["instances"]["instance"].arrayValue {
+            let deviceObj = DeviceList(deviceType: item["tags"].stringValue, deviceId: item["id"].stringValue, deviceName: item["name"].stringValue, status: self.getDeviceStatus(point: item["points"].arrayValue, deviceType: item["tags"].stringValue), mediaType: item["mediaType"].stringValue)
+            self.deviceArray.append(deviceObj)
+        }
+        
+        self.defaults.setValue(uname, forKey: "Name")
+        self.defaults.setValue(loginJSON["login"]["site"]["id"].stringValue, forKey: "siteId")
+        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: self.deviceArray)
+        self.defaults.set(encodedData, forKey: "deviceArray")
+        self.defaults.synchronize()
+        
+        //to navigate to next page
+        self.performSegue(withIdentifier: "segueIdMain", sender: self)
+    }
+    
+    func loginError(error: Error) {
+        let alert = UIAlertController(title: "Alert", message: "Login Failed..Invalid Credentials", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     func getDeviceStatus(point: [JSON], deviceType: String) -> String {
@@ -100,19 +97,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         return status;
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    @IBAction func signInBtnTapped(_ sender: UIButton) {
-        let params : [String : String] = ["expand" : "sites,instances,points,functions"]
-        if let server = serverName {
-            let apiUrl = "https://\(server)/rest/icontrol/login"
-            doLogin(url: apiUrl, parameters: params)
-        }
-    }
-    
     @IBAction func helpBtnTapped(_ sender: UIButton) {
         print("Help Button Tapped")
     }
@@ -125,10 +109,5 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-    
-    //hide keyboard by pressing retun key
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
+
 }
