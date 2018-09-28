@@ -42,6 +42,9 @@ class ManagePartnerServicesViewController: UIViewController, UITableViewDelegate
             viewController.serviceID = partnerList[indexPath.row]
         } else {
             print("Service Not Connected")
+            let viewController:ConnectCloudServiceViewController = self.storyboard?.instantiateViewController(withIdentifier: "ConnectCloudService") as! ConnectCloudServiceViewController
+            navigationController?.pushViewController(viewController, animated: true)
+            viewController.serviceID = partnerList[indexPath.row]
         }
         
         

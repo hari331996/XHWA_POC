@@ -21,6 +21,7 @@
 		5F6560531C862AD27587C095 /* Pods_Home.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824E48915630E7DBB2B681A4 /* Pods_Home.framework */; };
 		87A7C1A1212D65820090BBEE /* ManagePartnerServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7C1A0212D65820090BBEE /* ManagePartnerServicesViewController.swift */; };
 		87E9442221428EF800399C7A /* CloudServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E9442121428EF800399C7A /* CloudServiceViewController.swift */; };
+		87E944242147E16600399C7A /* ConnectCloudServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E944232147E16600399C7A /* ConnectCloudServiceViewController.swift */; };
 		941F5728211AF00B00A5D2A7 /* ActivityDataModelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941F5727211AF00B00A5D2A7 /* ActivityDataModelItem.swift */; };
 		94334E51213563E90095AA65 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94334E50213563E90095AA65 /* Device.swift */; };
 		94334E53213563FB0095AA65 /* DeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94334E52213563FB0095AA65 /* DeviceData.swift */; };
@@ -49,6 +50,7 @@
 		824E48915630E7DBB2B681A4 /* Pods_Home.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Home.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		87A7C1A0212D65820090BBEE /* ManagePartnerServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagePartnerServicesViewController.swift; sourceTree = "<group>"; };
 		87E9442121428EF800399C7A /* CloudServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudServiceViewController.swift; sourceTree = "<group>"; };
+		87E944232147E16600399C7A /* ConnectCloudServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectCloudServiceViewController.swift; sourceTree = "<group>"; };
 		941F5727211AF00B00A5D2A7 /* ActivityDataModelItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDataModelItem.swift; sourceTree = "<group>"; };
 		94334E50213563E90095AA65 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		94334E52213563FB0095AA65 /* DeviceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceData.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				94CD2B96212FDC9100EFBFA0 /* ApplicationSettingsViewController.swift */,
 				87A7C1A0212D65820090BBEE /* ManagePartnerServicesViewController.swift */,
 				87E9442121428EF800399C7A /* CloudServiceViewController.swift */,
+				87E944232147E16600399C7A /* ConnectCloudServiceViewController.swift */,
 				94A6EACC21510E6D00DCA6FD /* Loader.swift */,
 			);
 			path = Controller;
@@ -283,6 +286,7 @@
 				941F5728211AF00B00A5D2A7 /* ActivityDataModelItem.swift in Sources */,
 				229BB15020ECAC8E005FC5B4 /* ActivityTabViewController.swift in Sources */,
 				94334E51213563E90095AA65 /* Device.swift in Sources */,
+				87E944242147E16600399C7A /* ConnectCloudServiceViewController.swift in Sources */,
 				87E9442221428EF800399C7A /* CloudServiceViewController.swift in Sources */,
 				229BB11D20E9FE5D005FC5B4 /* Login_Screen.xcdatamodeld in Sources */,
 				229BB15220ECAC9C005FC5B4 /* AutomationTabViewController.swift in Sources */,

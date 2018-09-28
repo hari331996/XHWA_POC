@@ -53,6 +53,26 @@ class CloudServiceViewController: UIViewController, UITableViewDelegate, UITable
         // Do any additional setup after loading the view.
     }
 
+    @IBAction func disconnectService(_ sender: UIButton) {
+        let alert = UIAlertController(title: "Disconnect \(serviceID)", message: "Are you sure you want to disconnect from this account?", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            self.disconnect()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+            self.cancel()
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func disconnect() {
+        print("Okay")
+        let _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    func cancel() {
+        print("Cancel")
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
